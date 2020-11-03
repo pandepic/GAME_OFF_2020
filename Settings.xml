@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Settings>
+  <Section Name="Window">
+    <Setting Name="Width" Value="1600" />
+    <Setting Name="Height" Value="900" />
+  </Section>
+  <Section Name="Sound">
+    <Setting Name="MusicVolume" Value="0" />
+    <Setting Name="SFXVolume" Value="0.5" />
+    <Setting Name="UIVolume" Value="0.5" />
+  </Section>
+  <Section Name="Controls">
+    <Setting Name="MoveUp" Value="W,Up" Type="Keyboard" />
+    <Setting Name="MoveDown" Value="S,Down" Type="Keyboard" />
+    <Setting Name="MoveLeft" Value="A,Left" Type="Keyboard" />
+    <Setting Name="MoveRight" Value="D,Right" Type="Keyboard" />
+  </Section>
+</Settings>
