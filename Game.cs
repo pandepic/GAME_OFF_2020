@@ -1,15 +1,29 @@
 ﻿using ElementEngine;
 using GAME_OFF_2020.GameStates;
+using System.Collections.Generic;
 using Veldrid;
 
 namespace GAME_OFF_2020
 {
+    public enum GameStateType
+    {
+        MainMenu,
+        Settings,
+        Play
+    }
+
     public class Game : BaseGame
     {
-        protected GameStateMainMenu _mainMenuState = new GameStateMainMenu();
+        protected Dictionary<GameStateType, GameState> _gameStates = new Dictionary<GameStateType, GameState>()
+        {
+            { GameStateType.MainMenu, new GameStateMainMenu() },
+            { GameStateType.Settings, new GameStateSettings() },
+            { GameStateType.Play, new GameStatePlay() },
+        };
 
         public override void Load()
         {
+            Globals.Game = this;
             SettingsManager.LoadFromPath("Settings.xml");
 
             var windowRect = new ElementEngine.Rectangle()
@@ -30,7 +44,12 @@ namespace GAME_OFF_2020
             InputManager.LoadGameControls();
             //CursorManager.SetCursor("normal", "Images/NormalCursor.png");
 
-            SetGameState(_mainMenuState);
+            SetGameState(GameStateType.MainMenu);
+        }
+
+        public void SetGameState(GameStateType type)
+        {
+            SetGameState(_gameStates[type]);
         }
 
         public override void Update(GameTimer gameTimer)
