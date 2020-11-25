@@ -5,24 +5,24 @@ using System.Text;
 
 namespace GAME_OFF_2020.GameStates
 {
-    public class GameStateMainMenu : GameState, IPUIEventHandler
+    public class GameStateMainMenu : GameState, IUIEventHandler
     {
-        protected PUIMenu _menu;
+        protected UIMenu _menu;
 
         public override void Load()
         {
             if (_menu == null)
             {
-                _menu = new PUIMenu();
+                _menu = new UIMenu();
                 //_menu.Load("UI/MainMenu.xml", "UI/_Templates.xml");
             }
 
-            _menu.AddPUIEventHandler(this);
+            _menu.AddUIEventHandler(this);
         }
 
         public override void Unload()
         {
-            _menu.RemovePUIEventHandler(this);
+            _menu.RemoveUIEventHandler(this);
         }
 
         public override void Update(GameTimer gameTimer)
@@ -33,7 +33,7 @@ namespace GAME_OFF_2020.GameStates
         {
         }
 
-        public void HandlePUIEvent(PUIMenu source, PUIEventType type, PUIWidget widget)
+        public void HandleUIEvent(UIMenu source, UIEventType type, UIWidget widget)
         {
         }
     }

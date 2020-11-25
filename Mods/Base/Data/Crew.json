@@ -1,0 +1,191 @@
+[
+  {
+    "Name": "Korsakov",
+    "Texture": "CatWalking.png",
+    "Species": "Cat",
+    "Talent": "Mopping",
+    "Weakness": "Oxygen-Garden",
+    "Likes": "Prokofiev",
+    "Hates": "Rachmaninoff",
+    "Dialogue": {
+      "How's It Going?": {
+        "Currently Working": {
+          "Status": {
+            "Working On Talent": "I’VE BEGUN LAPPING AT THE COFFEE WITH MY TONGUE. THIS SUBSTANCE IS A REVELATION. FOR THE FIRST TIME IN MY LIFE I FEEL TRULY ALIVE.",
+            "Working On Weakness": "Anyone who tells you that I’ve been eating chunks out of every plant in this garden is an imposter and we should eject them from the airlock.",
+            "Default 1": "I’m fine. I was just starting to focus until you interrupted me.",
+            "Default 2": "If you’re not going to rub my belly, don’t talk to me right now. The work is fine. It’s not my favorite, but it’s fine.",
+            "Default 3": "I would rather be napping, but otherwise this is fine."
+          },
+          "Opinion of Coworker": {
+            "They Like Coworker": "I like this Prokofiev. They're quiet. The world needs more quiet people.",
+            "They Hate Coworker": "And please God get me away from this awful monster. And tell him that he doesn't have to shout. I can't think straight when he's around."
+          }
+        },
+        "Not Currently Working": {
+          "Personal": {
+            "Very Upset": "I started having nightmares about my family dying...I'd really just like some time alone if I could get it.",
+            "Fine": "I think I'm starting to get to a better place.",
+            "In A Good Place": "If my family passed in the apocalypse, the least I can do for them is to keep going."
+          },
+          "Opinion of Crewmate": {
+            "Opinion 1": "I like this Prokofiev. They're quiet. I like quiet. I need quiet.",
+            "Opinion 2": "I cannot STAND Rachmaninoff. Why have you not taken his helmet from him!? The clatter will drive us all mad."
+          }
+        }
+      }
+    }
+  },
+
+  {
+    "Name": "Dvorak",
+    "Texture": "SnakeWalking.png",
+    "Species": "Snake",
+    "Talent": "Fixing Water-Converter",
+    "Weakness": "Mopping",
+    "Likes": "Korsakov",
+    "Hates": "Tchaikovsky",
+    "Dialogue": {
+      "How's It Going?": {
+        "Currently Working": {
+          "Status": {
+            "Working On Talent": "I'm able to crawl inside to check the pipes. Who else is able to do that!? Go me.",
+            "Working On Weakness": "I'm not really able to do much here. I'm definitely doing my best with the circumstances, but still.",
+            "Default 1": "I'm doing as well as I can, under the circumstances!",
+            "Default 2": "I'm really nailing this! It's not what I'm best at, but I'm nailing it.",
+            "Default 3": "I look around at everyone else trying their hardest and it inspires me to do my best at this task!"
+          },
+          "Opinion of Coworker": {
+            "They Like Coworker": "I really like this Korsakov. He's got this quiet dignity. I don't like the way he looks at me, but that's okay.",
+            "They Hate Coworker": "It's...hard for me to work with a rat. Because they're my main food source and all. This is hard. I should set a boundary about it."
+          }
+        },
+        "Not Currently Working": {
+          "Personal": {
+            "Very Upset": "I...have some trauma. I never knew my family. I was raised in a lab. I've been having some really rough nightmares about it. It's making it hard to work.",
+            "Fine": "I've been having fewer nightmares!",
+            "In A Good Place": "The nightmares are gone! I've been doing lots of work on myself while I've been alone. Thank you for that time."
+          },
+          "Opinion of Crewmate": {
+            "Opinion 1": "If I had to pick a favorite, it'd be that cat, Korsakov. He's got this dignity and self-respect that I admire.",
+            "Opinion 2": "My least favorite is Tchaikovsky. She's great and I want her to be happy, but I grew up being fed rats and the association is hard to break."
+          }
+        }
+      }
+    }
+  },
+
+  {
+    "Name": "Tchaikovsky",
+    "Texture": "RatWalking.png",
+    "Species": "Rat",
+    "Talent": "Fixing Virus",
+    "Weakness": "Fixing Water-Converter",
+    "Likes": "Dvorak",
+    "Hates": "Korsakov",
+    "Dialogue": {
+      "How's It Going?": {
+        "Currently Working": {
+          "Status": {
+            "Working On Talent": "I've isolated the computer issues to virus.h and virus.cpp. Working on rewriting them. It's a pain because every time I change anything in the cpp file, I have to change it in the header file. Whatever. C++, man.",
+            "Working On Weakness": "H-h-hey. I'm sorry, but this mechanical stuff is a little out of my league.",
+            "Default 1": "I-I-I'm doing my best with what I'm working on!",
+            "Default 2": "T-t-the job I'm doing isn't my favorite, but it's okay!",
+            "Default 3": "I-I-I hope everyone's doing okay!"
+          },
+          "Opinion of Coworker": {
+            "They Like Coworker": "I-I-I'm a little nervous, working next to Dvorak. I like them a lot. Their self confidence inspires me.",
+            "They Hate Coworker": "I-I-I think that I'm a pretty o-o-open heart, but Korsakov is a stuck up princess and I don't like working with them."
+          }
+        },
+        "Not Currently Working": {
+          "Personal": {
+            "Very Upset": "S-s-so I'm not doing okay. Some self-esteem issues I'm working through. ...Self hatred issues. Shame spirals. Is it okay if I spend some time alone?",
+            "Fine": "I started thinking about who I am. When I spend time alone, I like myself as a person a little bit more. A little bit.",
+            "In A Good Place": "Thank you for letting me spend time alone."
+          },
+          "Opinion of Crewmate": {
+            "Opinion 1": "I-I-I'm a big fan of Dvorak, the snake. T-t-they say a lot of really positive things. Valuable for a little rat like me.",
+            "Opinion 2": "I-I-I don't like that cat, Korsakov. The way he looks at me, I feel inadequate. ...More inadequate."
+          }
+        }
+      }
+    }
+  },
+
+  {
+    "Name": "Rachmaninoff",
+    "Texture": "MonkeyWalking.png",
+    "Species": "Gorilla",
+    "Talent": "Fixing Siding",
+    "Weakness": "Fixing Computer",
+    "Likes": "Tchaikovsky",
+    "Hates": "Prokofiev",
+    "Dialogue": {
+      "How's It Going?": {
+        "Currently Working": {
+          "Status": {
+            "Working On Talent": "FIXING SIDING. GOOD JOB FOR ME. I HOLD BREATH WHEN I'M OUTSIDE. BIG STRONG MUSCLES. ALL OF THAT. GOOD JOB FOR ME.",
+            "Working On Weakness": "I KEEP TRYING TO SMASH COMPUTER, BUT IT IS ONLY GETTING MORE BROKEN.",
+            "Default 1": "I AM USING MY MUSCLES AS BEST AS I CAN.",
+            "Default 2": "WORKING. WORKING HARD. BUT HARDLY WORKING. THAT IS A GORILLA JOKE.",
+            "Default 3": "OOF OOF UNGH. THOSE ARE THE SOUNDS I MAKE AS I AM WORKING WITH MY GORILLA MUSCLES."
+          },
+          "Opinion of Coworker": {
+            "They Like Coworker": "LITTLE RAT TCHAIKOVSKY DOING GOOD. I LIKE LITTLE RAT. LIKE A LITTLE ME.",
+            "They Hate Coworker": "TURTLE GIVES ME THE CREEPS. HOW CAN YOU BE SO QUIET. SPACE IS ALREADY QUIET. IF WE DON'T MAKE NOISE, WE WILL GO CRAZY."
+          }
+        },
+        "Not Currently Working": {
+          "Personal": {
+            "Very Upset": "I AM GOING STIR CRAZY. I CAME FROM JUNGLE. I AM NOT DOING WELL INSIDE THIS SMALL TUNNEL. AHHHH. THAT IS A PANICKED GORILLA NOISE.",
+            "Fine": "THANK YOU FOR TIME ALONE. I SET UP JUNGLE GYM IN MY ROOM. FEELING A LITTLE BETTER.",
+            "In A Good Place": "YESTERDAY I BROKE MY BUNKBED. TURNED IT INTO A WEIGHT SET. WORKING OUT. GOOD FOR THE BODY AND THE SOUL."
+          },
+          "Opinion of Crewmate": {
+            "Opinion 1": "I LOOK AT LITTLE RAT. THEY'RE FUNNY. SCURRYING. FUNNY RAT HAHA. HAHA IS THE SOUND GORILLAS MAKE WHEN THEY LAUGH, LOL.",
+            "Opinion 2": "TURTLE GIVES ME SPOOKS SOMETHING GOOD. DON'T BE SO QUIET TURTLE. I BARELY KNOW YOU. TALK MORE. YUCK. CREEPY, RIGHT?"
+          }
+        }
+      }
+    }
+  },
+
+  {
+    "Name": "Prokofiev",
+    "Texture": "TurtleWalking.png",
+    "Species": "Turtle",
+    "Talent": "Oxygen-Garden",
+    "Weakness": "Fixing Siding",
+    "Likes": "Rachmaninoff",
+    "Hates": "Dvorak",
+    "Dialogue": {
+      "How's It Going?": {
+        "Currently Working": {
+          "Status": {
+            "Working On Talent": "I'm enjoying gardening. It's peaceful.",
+            "Working On Weakness": "I don't get this. I can't reach the siding. I have little arms.",
+            "Default 1": "Work is good.",
+            "Default 2": "I'm working fine. Doing my best.",
+            "Default 3": "Work is going okay."
+          },
+          "Opinion of Coworker": {
+            "They Like Coworker": "I like Rachmaninoff. I like the noise they make. It's nice.",
+            "They Hate Coworker": "Dvorak upsets me. I enjoy being the only reptile thing on the ship."
+          }
+        },
+        "Not Currently Working": {
+          "Personal": {
+            "Very Upset": "I have a lot of problems. I don't want to tell you what they are. I'd like time alone to process them.",
+            "Fine": "I'm doing a little bit better, thank you for asking.",
+            "In A Good Place": "I'm much better. I don't want to talk about myself anymore."
+          },
+          "Opinion of Crewmate": {
+            "Opinion 1": "Rachmaninoff is a welcome change to the ship. I'm glad for the noise and the life that they offer.",
+            "Opinion 2": "I don't particularly like Dvorak, the snake. They repulse me. Snakes repulse me."
+          }
+        }
+      }
+    }
+  }
+]
