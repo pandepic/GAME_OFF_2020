@@ -15,18 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Mods\Base\Data\Crew.json" />
-    <None Remove="Mods\Base\Images\CatWalking.png" />
-    <None Remove="Mods\Base\Images\DogWalking.png" />
-    <None Remove="Mods\Base\Images\MonkeyWalking.png" />
-    <None Remove="Mods\Base\Images\RatWalking.png" />
-    <None Remove="Mods\Base\Images\SnakeWalking.png" />
-    <None Remove="Mods\Base\Images\SpeechBubble.png" />
-    <None Remove="Mods\Base\Images\SubwayShip.png" />
-    <None Remove="Mods\Base\Images\TurtleWalking.png" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ElementEngine\ElementEngine.csproj" />
   </ItemGroup>
 
