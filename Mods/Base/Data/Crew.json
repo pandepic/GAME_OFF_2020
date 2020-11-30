@@ -2,6 +2,7 @@
   {
     "Name": "Korsakov",
     "Texture": "CatWalking.png",
+    "StartPosition": 410,
     "Species": "Cat",
     "Talent": "Mopping",
     "Weakness": "Oxygen-Garden",
@@ -11,10 +12,10 @@
       "How's It Going?": {
         "Currently Working": {
           "Status": {
-            "Working On Talent": "I’VE BEGUN LAPPING AT THE COFFEE WITH MY TONGUE. THIS SUBSTANCE IS A REVELATION. FOR THE FIRST TIME IN MY LIFE I FEEL TRULY ALIVE.",
-            "Working On Weakness": "Anyone who tells you that I’ve been eating chunks out of every plant in this garden is an imposter and we should eject them from the airlock.",
-            "Default 1": "I’m fine. I was just starting to focus until you interrupted me.",
-            "Default 2": "If you’re not going to rub my belly, don’t talk to me right now. The work is fine. It’s not my favorite, but it’s fine.",
+            "Working On Talent": "I'VE BEGUN LAPPING AT THE COFFEE WITH MY TONGUE. THIS SUBSTANCE IS A REVELATION. FOR THE FIRST TIME IN MY LIFE I FEEL TRULY ALIVE.",
+            "Working On Weakness": "Anyone who tells you that I've been eating chunks out of every plant in this garden is an imposter and we should eject them from the airlock.",
+            "Default 1": "I'm fine. I was just starting to focus until you interrupted me.",
+            "Default 2": "If you're not going to rub my belly, don't talk to me right now. The work is fine. It's not my favorite, but it's fine.",
             "Default 3": "I would rather be napping, but otherwise this is fine."
           },
           "Opinion of Coworker": {
@@ -40,6 +41,7 @@
   {
     "Name": "Dvorak",
     "Texture": "SnakeWalking.png",
+    "StartPosition": 450,
     "Species": "Snake",
     "Talent": "Fixing Water-Converter",
     "Weakness": "Mopping",
@@ -78,6 +80,7 @@
   {
     "Name": "Tchaikovsky",
     "Texture": "RatWalking.png",
+    "StartPosition": 500,
     "Species": "Rat",
     "Talent": "Fixing Virus",
     "Weakness": "Fixing Water-Converter",
@@ -116,6 +119,7 @@
   {
     "Name": "Rachmaninoff",
     "Texture": "MonkeyWalking.png",
+    "StartPosition": 550,
     "Species": "Gorilla",
     "Talent": "Fixing Siding",
     "Weakness": "Fixing Computer",
@@ -154,6 +158,7 @@
   {
     "Name": "Prokofiev",
     "Texture": "TurtleWalking.png",
+    "StartPosition": 600,
     "Species": "Turtle",
     "Talent": "Oxygen-Garden",
     "Weakness": "Fixing Siding",

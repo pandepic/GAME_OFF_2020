@@ -34,17 +34,17 @@ namespace GAME_OFF_2020
                 Height = SettingsManager.GetSetting<int>("Window", "Height")
             };
 
-            SetupWindow(windowRect, "Swords and Sorcery", GraphicsBackend.Direct3D11);
+            SetupWindow(windowRect, "Captain Shostakovich", GraphicsBackend.Direct3D11);
             SetupAssets();
 
             Window.Resizable = false;
-            ClearColor = RgbaFloat.CornflowerBlue;
+            ClearColor = RgbaFloat.Black;
 
-            //AnimationManager.LoadAnimations("Data/Animations.xml");
+            AnimationManager.LoadAnimations("Animations.xml");
             InputManager.LoadGameControls();
             //CursorManager.SetCursor("normal", "Images/NormalCursor.png");
 
-            SetGameState(GameStateType.MainMenu);
+            SetGameState(GameStateType.Play);
         }
 
         public void SetGameState(GameStateType type)
