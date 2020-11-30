@@ -52,12 +52,12 @@ namespace GAME_OFF_2020
             if (Data != null)
             {
                 Sprite = new AnimatedSprite(AssetManager.LoadTexture2D(Data.Texture), new Vector2I(32, 32));
-                Position = new Vector2(Data.StartPosition, GameStates.GameStatePlay.CHARACTER_Y);
+                Position = new Vector2(Data.StartPosition, GameStates.GameStatePlay.CharacterY);
             }
             else
             {
                 Sprite = new AnimatedSprite(AssetManager.LoadTexture2D("DogWalking.png"), new Vector2I(32, 32));
-                Position = new Vector2(0, GameStates.GameStatePlay.CHARACTER_Y);
+                Position = new Vector2(0, GameStates.GameStatePlay.CharacterY);
             }
 
             StateMachine.RegisterState(new CharacterIdleState(this));

@@ -23,6 +23,8 @@ namespace GAME_OFF_2020
 
     public class CharacterManager
     {
+        public Camera2D Camera => GameStates.GameStatePlay.Camera;
+
         public List<CharacterData> CharacterData { get; set; }
         public List<Character> Characters { get; set; } = new List<Character>();
 
@@ -73,5 +75,17 @@ namespace GAME_OFF_2020
             foreach (var character in Characters)
                 spriteBatch.DrawSprite(character.Sprite, character.Position.ToVector2I());
         }
+
+        public void DrawScreenSpace(SpriteBatch2D spriteBatch)
+        {
+            foreach (var character in Characters)
+            {
+                if (character.Data == null)
+                    continue;
+
+                spriteBatch.DrawText(GameStates.GameStatePlay.DefaultFont, character.Data.Name, Camera.WorldToScreen(character.Position.ToVector2I() + new Vector2I(0, -8)), Veldrid.RgbaByte.White, 20, 1);
+            }
+        }
+
     }
 }

@@ -15,12 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Mods\Base\Data\Animations.xml" />
-    <None Remove="Mods\Base\Data\Ship.tmx" />
-    <None Remove="Mods\Base\Fonts\Lato-Bold.ttf" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ElementEngine\ElementEngine.csproj" />
   </ItemGroup>
 

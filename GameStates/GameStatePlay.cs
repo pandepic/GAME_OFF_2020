@@ -4,19 +4,22 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Text;
+using System.Xml.Linq;
 
 namespace GAME_OFF_2020.GameStates
 {
     public class GameStatePlay : GameState
     {
-        public const float CHARACTER_SPEED = 100f;
-        public const float BACKGROUND_SPEED = 15f;
-        public const float CHARACTER_Y = 217;
+        public static float CharacterSpeed { get; private set; }
+        public static float BackgroundSpeed { get; private set; }
+        public static float CharacterY { get; private set; }
+
+        public static SpriteFont DefaultFont { get; private set; }
+        public static Camera2D Camera;
 
         public Character Player => CharacterManager.Player;
 
         public Random RNG = new Random();
-        public Camera2D Camera;
         public Camera2D BackgroundCamera;
         public TiledMap Map;
         public TiledMapRenderer MapRenderer;
@@ -24,10 +27,16 @@ namespace GAME_OFF_2020.GameStates
         public CharacterManager CharacterManager;
 
         public SpriteBatch2D SpriteBatch;
-        public SpriteFont DefaultFont;
 
         public override void Load()
         {
+            using var fs = AssetManager.GetAssetStream("GameConfig.xml");
+            var configDoc = XDocument.Load(fs);
+
+            CharacterSpeed = float.Parse(configDoc.Root.Element("CharacterSpeed").Value);
+            BackgroundSpeed = float.Parse(configDoc.Root.Element("BackgroundSpeed").Value);
+            CharacterY = float.Parse(configDoc.Root.Element("CharacterY").Value);
+
             SpriteBatch = new SpriteBatch2D();
             DefaultFont = AssetManager.LoadSpriteFont("Lato-Bold.ttf");
 
@@ -73,39 +82,25 @@ namespace GAME_OFF_2020.GameStates
         {
             switch (controlName)
             {
-                //case "MoveUp":
-                //    if (state == GameControlState.Pressed)
-                //        PlayerVelocity.Y -= CHARACTER_SPEED;
-                //    else if (state == GameControlState.Released)
-                //        PlayerVelocity.Y += CHARACTER_SPEED;
-                //    break;
-
-                //case "MoveDown":
-                //    if (state == GameControlState.Pressed)
-                //        PlayerVelocity.Y += CHARACTER_SPEED;
-                //    else if (state == GameControlState.Released)
-                //        PlayerVelocity.Y -= CHARACTER_SPEED;
-                //    break;
-
                 case "MoveLeft":
                     if (state == GameControlState.Pressed)
-                        Player.Velocity.X -= CHARACTER_SPEED;
+                        Player.Velocity.X -= CharacterSpeed;
                     else if (state == GameControlState.Released)
-                        Player.Velocity.X += CHARACTER_SPEED;
+                        Player.Velocity.X += CharacterSpeed;
                     break;
 
                 case "MoveRight":
                     if (state == GameControlState.Pressed)
-                        Player.Velocity.X += CHARACTER_SPEED;
+                        Player.Velocity.X += CharacterSpeed;
                     else if (state == GameControlState.Released)
-                        Player.Velocity.X -= CHARACTER_SPEED;
+                        Player.Velocity.X -= CharacterSpeed;
                     break;
             }
         }
 
         public override void Update(GameTimer gameTimer)
         {
-            BackgroundCamera.X += BACKGROUND_SPEED * gameTimer.DeltaS;
+            BackgroundCamera.X += BackgroundSpeed * gameTimer.DeltaS;
             BackgroundCamera.Update(gameTimer);
 
             CharacterManager.Update(gameTimer, Map);
@@ -126,6 +121,7 @@ namespace GAME_OFF_2020.GameStates
             SpriteBatch.DrawText(DefaultFont, Player.Position.ToVector2I().ToString(), new Vector2(25, 25), Veldrid.RgbaByte.White, 20, 1);
             SpriteBatch.DrawText(DefaultFont, Camera.ToString(), new Vector2(25, 50), Veldrid.RgbaByte.White, 20, 1);
             SpriteBatch.DrawText(DefaultFont, BackgroundCamera.ToString(), new Vector2(25, 75), Veldrid.RgbaByte.White, 20, 1);
+            CharacterManager.DrawScreenSpace(SpriteBatch);
             SpriteBatch.End();
         }
     }

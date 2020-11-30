@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<GameConfig>
+  <CharacterSpeed>100</CharacterSpeed>
+  <BackgroundSpeed>15</BackgroundSpeed>
+  <CharacterY>217</CharacterY>
+</GameConfig>
