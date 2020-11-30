@@ -12,6 +12,8 @@ namespace GAME_OFF_2020.GameStates
         public const float CHARACTER_SPEED = 100f;
         public const float CHARACTER_Y = 217;
 
+        public Character Player => CharacterManager.Player;
+
         public Camera2D Camera;
         public TiledMap Map;
         public TiledMapRenderer MapRenderer;
@@ -19,10 +21,6 @@ namespace GAME_OFF_2020.GameStates
 
         public SpriteBatch2D SpriteBatch;
         public SpriteFont DefaultFont;
-
-        public AnimatedSprite PlayerSprite;
-        public Vector2 PlayerVelocity;
-        public Vector2 PlayerPosition;
 
         public override void Load()
         {
@@ -36,11 +34,6 @@ namespace GAME_OFF_2020.GameStates
             Camera.Zoom = 2;
 
             CharacterManager = new CharacterManager("Crew.json");
-            PlayerSprite = new AnimatedSprite(AssetManager.LoadTexture2D("DogWalking.png"), new Vector2I(32, 32));
-            PlayerPosition.Y = CHARACTER_Y;
-
-            foreach (var character in CharacterManager.Characters)
-                character.Position = new Vector2(character.Data.StartPosition, CHARACTER_Y);
         }
 
         public override void Unload()
@@ -67,30 +60,25 @@ namespace GAME_OFF_2020.GameStates
 
                 case "MoveLeft":
                     if (state == GameControlState.Pressed)
-                        PlayerVelocity.X -= CHARACTER_SPEED;
+                        Player.Velocity.X -= CHARACTER_SPEED;
                     else if (state == GameControlState.Released)
-                        PlayerVelocity.X += CHARACTER_SPEED;
+                        Player.Velocity.X += CHARACTER_SPEED;
                     break;
 
                 case "MoveRight":
                     if (state == GameControlState.Pressed)
-                        PlayerVelocity.X += CHARACTER_SPEED;
+                        Player.Velocity.X += CHARACTER_SPEED;
                     else if (state == GameControlState.Released)
-                        PlayerVelocity.X -= CHARACTER_SPEED;
+                        Player.Velocity.X -= CHARACTER_SPEED;
                     break;
             }
         }
 
         public override void Update(GameTimer gameTimer)
         {
-            PlayerPosition += PlayerVelocity * gameTimer.DeltaS;
-            Camera.Center(PlayerPosition.ToVector2I());
+            CharacterManager.Update(gameTimer, Map);
+            Camera.Center(Player.Position.ToVector2I());
             Camera.Update(gameTimer);
-
-            if (PlayerVelocity.X > 0 && PlayerPosition.X > (Map.MapPixelSize.X + PlayerSprite.Width))
-                PlayerPosition.X = -PlayerSprite.Width;
-            else if (PlayerVelocity.X < 0 && PlayerPosition.X < -PlayerSprite.Width)
-                PlayerPosition.X = (Map.MapPixelSize.X + PlayerSprite.Width);
         }
 
         public override void Draw(GameTimer gameTimer)
@@ -98,16 +86,11 @@ namespace GAME_OFF_2020.GameStates
             MapRenderer.DrawLayers(0, 1, Camera);
 
             SpriteBatch.Begin(SamplerType.Point, Camera.GetViewMatrix());
-
-            foreach (var character in CharacterManager.Characters)
-                SpriteBatch.DrawSprite(character.Sprite, character.Position);
-
-            SpriteBatch.DrawSprite(PlayerSprite, PlayerPosition.ToVector2I());
-
+            CharacterManager.Draw(SpriteBatch);
             SpriteBatch.End();
 
             SpriteBatch.Begin(SamplerType.Point);
-            SpriteBatch.DrawText(DefaultFont, PlayerPosition.ToVector2I().ToString(), new Vector2(25, 25), Veldrid.RgbaByte.White, 20, 1);
+            SpriteBatch.DrawText(DefaultFont, Player.Position.ToVector2I().ToString(), new Vector2(25, 25), Veldrid.RgbaByte.White, 20, 1);
             SpriteBatch.DrawText(DefaultFont, Camera.ToString(), new Vector2(25, 50), Veldrid.RgbaByte.White, 20, 1);
             SpriteBatch.End();
         }

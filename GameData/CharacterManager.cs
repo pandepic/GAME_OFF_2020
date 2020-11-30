@@ -1,10 +1,9 @@
 ﻿using ElementEngine;
+using ElementEngine.Tiled;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
-using System.Text;
 
 namespace GAME_OFF_2020
 {
@@ -22,18 +21,12 @@ namespace GAME_OFF_2020
         public Dictionary<string, Dictionary<string, Dictionary<string, Dictionary<string, string>>>> Dialogue { get; set; }
     }
 
-    public class Character
-    {
-        public CharacterData Data { get; set; }
-        public AnimatedSprite Sprite { get; set; }
-        public Vector2 Position;
-        public Vector2 Velocity;
-    }
-
     public class CharacterManager
     {
         public List<CharacterData> CharacterData { get; set; }
         public List<Character> Characters { get; set; } = new List<Character>();
+
+        public Character Player { get; set; }
 
         public CharacterManager(string assetName)
         {
@@ -45,13 +38,40 @@ namespace GAME_OFF_2020
             CharacterData = serializer.Deserialize<List<CharacterData>>(jsonTextReader);
 
             foreach (var data in CharacterData)
+                Characters.Add(new Character(data));
+
+            Player = new Character(null);
+            Characters.Add(Player);
+        }
+
+        public void Update(GameTimer gameTimer, TiledMap map)
+        {
+            foreach (var character in Characters)
             {
-                Characters.Add(new Character()
-                {
-                    Data = data,
-                    Sprite = new AnimatedSprite(AssetManager.LoadTexture2D(data.Texture), new Vector2I(32, 32)),
-                });
+                character.Sprite.Update(gameTimer);
+                character.Position += character.Velocity * gameTimer.DeltaS;
+
+                if (character.Velocity.X > 0 && character.Position.X > (map.MapPixelSize.X + character.Sprite.Width))
+                    character.Position.X = -character.Sprite.Width;
+                else if (character.Velocity.X < 0 && character.Position.X < -character.Sprite.Width)
+                    character.Position.X = (map.MapPixelSize.X + character.Sprite.Width);
+
+                if (character.Velocity != Vector2.Zero)
+                    character.SetState<CharacterMovingState>();
+                else
+                    character.SetState<CharacterIdleState>();
+
+                if (character.Velocity.X > 0)
+                    character.Sprite.Flip = SpriteFlipType.None;
+                else if (character.Velocity.X < 0)
+                    character.Sprite.Flip = SpriteFlipType.Horizontal;
             }
+        }
+
+        public void Draw(SpriteBatch2D spriteBatch)
+        {
+            foreach (var character in Characters)
+                spriteBatch.DrawSprite(character.Sprite, character.Position.ToVector2I());
         }
     }
 }
