@@ -123,10 +123,13 @@ namespace GAME_OFF_2020.GameStates
             SpriteBatch.End();
 
             SpriteBatch.Begin(SamplerType.Point);
+            CharacterManager.DrawScreenSpace(SpriteBatch);
+
+#if DEBUG
             SpriteBatch.DrawText(DefaultFont, Player.Position.ToVector2I().ToString(), new Vector2(25, 25), Veldrid.RgbaByte.White, 20, 1);
             SpriteBatch.DrawText(DefaultFont, Camera.ToString(), new Vector2(25, 50), Veldrid.RgbaByte.White, 20, 1);
             SpriteBatch.DrawText(DefaultFont, BackgroundCamera.ToString(), new Vector2(25, 75), Veldrid.RgbaByte.White, 20, 1);
-            CharacterManager.DrawScreenSpace(SpriteBatch);
+#endif
             SpriteBatch.End();
         }
     }
