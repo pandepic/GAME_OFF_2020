@@ -20,6 +20,13 @@
     <TieredCompilation>false</TieredCompilation>
     <AssemblyName>GAME_OFF_2020</AssemblyName>
     <Configurations>Debug;Release;DebugOGL;ReleaseOGL</Configurations>
+
+    <BeautyLibsDir>Libraries</BeautyLibsDir>
+    <DisableBeauty>False</DisableBeauty>
+    <ForceBeauty>False</ForceBeauty>
+    <DisablePatch>False</DisablePatch>
+    <BeautyLogLevel>Error</BeautyLogLevel>
+    <BeautyExcludes>SDL2.dll</BeautyExcludes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugOGL|AnyCPU'">
@@ -34,6 +41,10 @@
     <Content Include="Mods\**\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="nulastudio.NetCoreBeauty" Version="1.2.9" />
   </ItemGroup>
 
   <ItemGroup>
