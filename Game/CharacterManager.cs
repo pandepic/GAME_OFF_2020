@@ -29,6 +29,7 @@ namespace GAME_OFF_2020
         public List<Character> Characters { get; set; } = new List<Character>();
 
         public Character Player { get; set; }
+        public Character InteractTarget { get; set; }
 
         public CharacterManager(string assetName)
         {
@@ -48,6 +49,8 @@ namespace GAME_OFF_2020
 
         public void Update(GameTimer gameTimer, TiledMap map)
         {
+            InteractTarget = null;
+
             foreach (var character in Characters)
             {
                 character.Sprite.Update(gameTimer);
@@ -67,6 +70,9 @@ namespace GAME_OFF_2020
                     character.Sprite.Flip = SpriteFlipType.None;
                 else if (character.Velocity.X < 0)
                     character.Sprite.Flip = SpriteFlipType.Horizontal;
+
+                if (character != Player && character.CollisionRect.Intersects(Player.CollisionRect))
+                    InteractTarget = character;
             }
         }
 
@@ -78,14 +84,32 @@ namespace GAME_OFF_2020
 
         public void DrawScreenSpace(SpriteBatch2D spriteBatch)
         {
-            foreach (var character in Characters)
-            {
-                if (character.Data == null)
-                    continue;
-
-                //spriteBatch.DrawText(GameStates.GameStatePlay.DefaultFont, character.Data.Name, Camera.WorldToScreen(character.Position.ToVector2I() + new Vector2I(0, -8)), Veldrid.RgbaByte.White, 20, 1);
-            }
+            if (InteractTarget != null)
+                spriteBatch.DrawText(GameStates.GameStatePlay.DefaultFont, InteractTarget.Data.Name, Camera.WorldToScreen(InteractTarget.Position.ToVector2I() + new Vector2I(0, -8)), Veldrid.RgbaByte.White, 24, 1);
         }
 
+        public Character GetCharacterFriend(Character character)
+        {
+            for (var i = 0; i < Characters.Count; i++)
+            {
+                var c = Characters[i];
+                if (character.Data.Likes == c.Data.Name)
+                    return c;
+            }
+
+            return null;
+        }
+
+        public Character GetCharacterEnemy(Character character)
+        {
+            for (var i = 0; i < Characters.Count; i++)
+            {
+                var c = Characters[i];
+                if (character.Data.Hates == c.Data.Name)
+                    return c;
+            }
+
+            return null;
+        }
     }
 }

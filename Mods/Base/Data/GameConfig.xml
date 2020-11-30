@@ -4,4 +4,5 @@
   <CharacterSpeed>100</CharacterSpeed>
   <BackgroundSpeed>15</BackgroundSpeed>
   <CharacterY>217</CharacterY>
+  <DialogueMaxWidth>400</DialogueMaxWidth>
 </GameConfig>

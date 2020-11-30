@@ -8,12 +8,16 @@ using System.Xml.Linq;
 
 namespace GAME_OFF_2020.GameStates
 {
+    public static class GameConfig
+    {
+        public static float CharacterSpeed { get; set; }
+        public static float BackgroundSpeed { get; set; }
+        public static float CharacterY { get; set; }
+        public static int DialogueMaxWidth { get; set; }
+    }
+
     public class GameStatePlay : GameState
     {
-        public static float CharacterSpeed { get; private set; }
-        public static float BackgroundSpeed { get; private set; }
-        public static float CharacterY { get; private set; }
-
         public static SpriteFont DefaultFont { get; private set; }
         public static Camera2D Camera;
 
@@ -33,9 +37,10 @@ namespace GAME_OFF_2020.GameStates
             using var fs = AssetManager.GetAssetStream("GameConfig.xml");
             var configDoc = XDocument.Load(fs);
 
-            CharacterSpeed = float.Parse(configDoc.Root.Element("CharacterSpeed").Value);
-            BackgroundSpeed = float.Parse(configDoc.Root.Element("BackgroundSpeed").Value);
-            CharacterY = float.Parse(configDoc.Root.Element("CharacterY").Value);
+            GameConfig.CharacterSpeed = float.Parse(configDoc.Root.Element("CharacterSpeed").Value);
+            GameConfig.BackgroundSpeed = float.Parse(configDoc.Root.Element("BackgroundSpeed").Value);
+            GameConfig.CharacterY = float.Parse(configDoc.Root.Element("CharacterY").Value);
+            GameConfig.DialogueMaxWidth = int.Parse(configDoc.Root.Element("DialogueMaxWidth").Value);
 
             SpriteBatch = new SpriteBatch2D();
             DefaultFont = AssetManager.LoadSpriteFont("Lato-Bold.ttf");
@@ -84,23 +89,23 @@ namespace GAME_OFF_2020.GameStates
             {
                 case "MoveLeft":
                     if (state == GameControlState.Pressed)
-                        Player.Velocity.X -= CharacterSpeed;
+                        Player.Velocity.X -= GameConfig.CharacterSpeed;
                     else if (state == GameControlState.Released)
-                        Player.Velocity.X += CharacterSpeed;
+                        Player.Velocity.X += GameConfig.CharacterSpeed;
                     break;
 
                 case "MoveRight":
                     if (state == GameControlState.Pressed)
-                        Player.Velocity.X += CharacterSpeed;
+                        Player.Velocity.X += GameConfig.CharacterSpeed;
                     else if (state == GameControlState.Released)
-                        Player.Velocity.X -= CharacterSpeed;
+                        Player.Velocity.X -= GameConfig.CharacterSpeed;
                     break;
             }
         }
 
         public override void Update(GameTimer gameTimer)
         {
-            BackgroundCamera.X += BackgroundSpeed * gameTimer.DeltaS;
+            BackgroundCamera.X += GameConfig.BackgroundSpeed * gameTimer.DeltaS;
             BackgroundCamera.Update(gameTimer);
 
             CharacterManager.Update(gameTimer, Map);
