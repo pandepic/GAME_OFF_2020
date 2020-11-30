@@ -45,12 +45,12 @@ namespace GAME_OFF_2020.GameStates
             Camera = new Camera2D(new Rectangle(0, 0, ElementGlobals.TargetResolutionWidth, ElementGlobals.TargetResolutionHeight))
             {
                 BoundingBox = new Rectangle(0, -5000, Map.MapSize.X * Map.TileSize.X, 10000),
-                Zoom = 2
+                Zoom = 3
             };
 
             BackgroundCamera = new Camera2D(new Rectangle(0, 0, ElementGlobals.TargetResolutionWidth, ElementGlobals.TargetResolutionHeight))
             {
-                Zoom = 2
+                Zoom = 3
             };
 
             BackgroundStars = new TileBatch2D(4000, 200, Map.TileSize.X, Map.TileSize.Y, AssetManager.LoadTexture2D("SubwayShip.png"), TileBatch2DWrapMode.Both);

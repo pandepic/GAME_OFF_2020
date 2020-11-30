@@ -83,7 +83,7 @@ namespace GAME_OFF_2020
                 if (character.Data == null)
                     continue;
 
-                spriteBatch.DrawText(GameStates.GameStatePlay.DefaultFont, character.Data.Name, Camera.WorldToScreen(character.Position.ToVector2I() + new Vector2I(0, -8)), Veldrid.RgbaByte.White, 20, 1);
+                //spriteBatch.DrawText(GameStates.GameStatePlay.DefaultFont, character.Data.Name, Camera.WorldToScreen(character.Position.ToVector2I() + new Vector2I(0, -8)), Veldrid.RgbaByte.White, 20, 1);
             }
         }
 
