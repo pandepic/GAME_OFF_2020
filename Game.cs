@@ -34,7 +34,13 @@ namespace GAME_OFF_2020
                 Height = SettingsManager.GetSetting<int>("Window", "Height")
             };
 
-            SetupWindow(windowRect, "Captain Shostakovich", GraphicsBackend.Direct3D11);
+            var graphicsBackend = GraphicsBackend.Direct3D11;
+
+#if OPENGL
+            graphicsBackend = GraphicsBackend.OpenGL;
+#endif
+
+            SetupWindow(windowRect, "Captain Shostakovich", graphicsBackend);
             SetupAssets();
 
             Window.Resizable = false;
