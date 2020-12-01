@@ -95,7 +95,7 @@ namespace GAME_OFF_2020
             }
             BackgroundStars.EndBuild();
 
-            SetGameState(GameStateType.Play);
+            SetGameState(GameStateType.MainMenu);
         }
 
         public void SetGameState(GameStateType type)
