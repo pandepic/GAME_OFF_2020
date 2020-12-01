@@ -136,7 +136,7 @@ namespace GAME_OFF_2020
                     if (!DialogueTarget.IsWorking)
                         DialogueOptions.Add(new DialogueOption("Assign Job", step));
                     if (!DialogueTarget.IsResting)
-                        DialogueOptions.Add(new DialogueOption("Assign Rest", step));
+                        DialogueOptions.Add(new DialogueOption("Rest For A While", step));
                     break;
 
                 case DialogueStepType.ChooseTopic:
@@ -301,7 +301,7 @@ namespace GAME_OFF_2020
                     break;
 
                 case DialogueStepType.DialogueLine:
-                    SetDialogueStep(DialogueStepType.ChooseTopic);
+                    StopDialogue();
                     break;
             }
         }

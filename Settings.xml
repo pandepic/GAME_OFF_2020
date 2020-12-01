@@ -14,7 +14,7 @@
     <Setting Name="MoveDown" Value="S,Down" Type="Keyboard" />
     <Setting Name="MoveLeft" Value="A,Left" Type="Keyboard" />
     <Setting Name="MoveRight" Value="D,Right" Type="Keyboard" />
-    <Setting Name="Interact" Value="E,Enter" Type="Keyboard" />
+    <Setting Name="Interact" Value="E,Enter,Space" Type="Keyboard" />
     <Setting Name="Cancel" Value="Escape,BackSpace" Type="Keyboard" />
   </Section>
 </Settings>
