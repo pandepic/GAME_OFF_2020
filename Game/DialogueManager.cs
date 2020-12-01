@@ -133,8 +133,10 @@ namespace GAME_OFF_2020
             {
                 case DialogueStepType.Menu:
                     DialogueOptions.Add(new DialogueOption("How's It Going?", step));
-                    DialogueOptions.Add(new DialogueOption("Assign Job", step));
-                    DialogueOptions.Add(new DialogueOption("Assign Rest", step));
+                    if (!DialogueTarget.IsWorking)
+                        DialogueOptions.Add(new DialogueOption("Assign Job", step));
+                    if (!DialogueTarget.IsResting)
+                        DialogueOptions.Add(new DialogueOption("Assign Rest", step));
                     break;
 
                 case DialogueStepType.ChooseTopic:
@@ -265,8 +267,7 @@ namespace GAME_OFF_2020
                         SetDialogueStep(DialogueStepType.AssignJob);
                     else if (selectedIndex == 2)
                     {
-                        DialogueTarget.StopWorking();
-                        DialogueTarget.IsResting = true;
+                        DialogueTarget.Rest();
                         StopDialogue();
                     }
                     break;

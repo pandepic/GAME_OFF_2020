@@ -72,6 +72,7 @@ namespace GAME_OFF_2020
             {
                 Sprite = new AnimatedSprite(AssetManager.LoadTexture2D("Dog.png"), new Vector2I(32, 32));
                 Position = new Vector2(200, GameConfig.CharacterY);
+                Mood = CharacterMood.InAGoodPlace;
             }
 
             StateMachine.RegisterState(new CharacterIdleState(this));
@@ -85,6 +86,7 @@ namespace GAME_OFF_2020
             StopWorking();
             CurrentJob = job;
             CurrentJob.IsOccupied = true;
+            CurrentJob.JobTimer = 30000;
             IsWorking = true;
             IsResting = false;
         }
@@ -96,6 +98,40 @@ namespace GAME_OFF_2020
             
             CurrentJob = null;
             IsWorking = false;
+        }
+
+        public void Rest()
+        {
+            StopWorking();
+            IsResting = true;
+        }
+
+        public void ImproveMood()
+        {
+            switch (Mood)
+            {
+                case CharacterMood.VeryUpset:
+                    Mood = CharacterMood.Fine;
+                    break;
+
+                case CharacterMood.Fine:
+                    Mood = CharacterMood.InAGoodPlace;
+                    break;
+            }
+        }
+
+        public void DecreaseMood()
+        {
+            switch (Mood)
+            {
+                case CharacterMood.Fine:
+                    Mood = CharacterMood.VeryUpset;
+                    break;
+
+                case CharacterMood.InAGoodPlace:
+                    Mood = CharacterMood.Fine;
+                    break;
+            }
         }
 
         public void SetState<T>() where T : CharacterBaseState

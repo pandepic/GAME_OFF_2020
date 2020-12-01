@@ -11,7 +11,8 @@ namespace GAME_OFF_2020
     {
         MainMenu,
         Settings,
-        Play
+        Play,
+        Won
     }
 
     public enum SoundType
@@ -26,6 +27,7 @@ namespace GAME_OFF_2020
             { GameStateType.MainMenu, new GameStateMainMenu() },
             { GameStateType.Settings, new GameStateSettings() },
             { GameStateType.Play, new GameStatePlay() },
+            { GameStateType.Won, new GameStateWon() },
         };
 
         public TiledMap Map;

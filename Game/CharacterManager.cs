@@ -2,6 +2,7 @@
 using ElementEngine.Tiled;
 using GAME_OFF_2020.GameStates;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
@@ -28,6 +29,7 @@ namespace GAME_OFF_2020
         public string Name { get; set; }
         public float Position { get; set; }
         public bool IsOccupied { get; set; } = false;
+        public float JobTimer { get; set; }
     }
 
     public class CharacterManager
@@ -83,6 +85,31 @@ namespace GAME_OFF_2020
                 {
                     character.SetState<CharacterIdleState>();
                     continue;
+                }
+
+                if (character.IsWorking)
+                {
+                    character.CurrentJob.JobTimer -= gameTimer.DeltaMS;
+                    if (character.CurrentJob.JobTimer <= 0)
+                    {
+                        if (character.CurrentJob.Name == character.Data.Talent)
+                            character.ImproveMood();
+                        else if (character.CurrentJob.Name == character.Data.Weakness)
+                            character.DecreaseMood();
+
+                        var won = true;
+
+                        foreach (var c in Globals.CharacterManager.Characters)
+                        {
+                            if (c.Mood != CharacterMood.InAGoodPlace)
+                                won = false;
+                        }
+
+                        if (won)
+                            Globals.Game.SetGameState(GameStateType.Won);
+
+                        character.Rest();
+                    }
                 }
 
                 var movingToWork = false;
