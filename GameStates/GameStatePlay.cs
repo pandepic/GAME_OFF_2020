@@ -93,6 +93,11 @@ namespace GAME_OFF_2020.GameStates
                     if (state == GameControlState.Released)
                         DialogueManager.StartDialogue();
                     break;
+
+                case "Cancel":
+                    if (state == GameControlState.Released)
+                        DialogueManager.StopDialogue();
+                    break;
             }
         }
 

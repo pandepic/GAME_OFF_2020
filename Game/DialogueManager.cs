@@ -53,12 +53,17 @@ namespace GAME_OFF_2020
                 GameConfig.SpeechBubbleConfig.BottomLeft, GameConfig.SpeechBubbleConfig.BottomCenter, GameConfig.SpeechBubbleConfig.BottomRight);
         }
 
+        public void StopDialogue()
+        {
+            HideDialogue();
+            DialogueTarget.IsTalking = false;
+            Globals.CharacterManager.Player.IsTalking = false;
+        }
+
         public void HideDialogue()
         {
             CurrentText = "";
             IsShowing = false;
-            DialogueTarget.IsTalking = false;
-            Globals.CharacterManager.Player.IsTalking = false;
         }
 
         public void Update(GameTimer gameTimer)
