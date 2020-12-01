@@ -36,10 +36,11 @@ namespace GAME_OFF_2020
     {
         public static SpriteFont DefaultFont => GameStatePlay.DefaultFont;
 
+        public Random RNG = new Random();
         public string CurrentText { get; set; }
         public Texture2D BackgroundAtlas { get; set; }
         public Texture2D BackgroundTexture { get; set; }
-        
+
         public bool IsShowing { get; set; }
         public Character DialogueTarget { get; set; }
         public DialogueStepType DialogueStep { get; set; }
@@ -139,7 +140,10 @@ namespace GAME_OFF_2020
                 case DialogueStepType.ChooseTopic:
                     var workingKey = DialogueTarget.IsWorking ? "Currently Working" : "Not Currently Working";
                     foreach (var topicKVP in DialogueTarget.Data.Dialogue["How's It Going?"][workingKey])
-                        DialogueOptions.Add(new DialogueOption(topicKVP.Key, step));
+                    {
+                        if (topicKVP.Key != "Opinion of Coworker")
+                            DialogueOptions.Add(new DialogueOption(topicKVP.Key, step));
+                    }
                     break;
 
                 case DialogueStepType.AssignJob:
@@ -150,11 +154,21 @@ namespace GAME_OFF_2020
                 case DialogueStepType.DialogueLine:
                     if (DialogueTarget.IsWorking)
                     {
+                        var rng = RNG.Next(1, 4);
+
+                        if (DialogueTarget.CurrentJob.Name == DialogueTarget.Data.Talent)
+                            DialogueOptions.Add(new DialogueOption(DialogueTarget.Data.Dialogue["How's It Going?"]["Currently Working"]["Status"]["Working On Talent"], step, false));
+                        else if (DialogueTarget.CurrentJob.Name == DialogueTarget.Data.Weakness)
+                            DialogueOptions.Add(new DialogueOption(DialogueTarget.Data.Dialogue["How's It Going?"]["Currently Working"]["Status"]["Working On Weakness"], step, false));
+                        else
+                            DialogueOptions.Add(new DialogueOption(DialogueTarget.Data.Dialogue["How's It Going?"]["Currently Working"]["Status"]["Default " + rng.ToString()], step, false));
                     }
                     else
                     {
                         if (previousOption.Text == "Personal")
+                        {
                             DialogueOptions.Add(new DialogueOption(DialogueTarget.Data.Dialogue["How's It Going?"]["Not Currently Working"][previousOption.Text][DialogueTarget.Mood.ToString()], step, false));
+                        }
                         else
                         {
                             if (_lastOpinionIndex == 0)
@@ -189,7 +203,7 @@ namespace GAME_OFF_2020
             WrappedTextSB.Clear();
             var width = 0;
             var words = text.Split(" ", StringSplitOptions.RemoveEmptyEntries);
-            
+
             foreach (var word in words)
             {
                 var textSize = DefaultFont.MeasureText(word, GameConfig.DialogueFontSize);
@@ -249,10 +263,25 @@ namespace GAME_OFF_2020
                         SetDialogueStep(DialogueStepType.ChooseTopic);
                     else if (selectedIndex == 1)
                         SetDialogueStep(DialogueStepType.AssignJob);
+                    else if (selectedIndex == 2)
+                    {
+                        DialogueTarget.StopWorking();
+                        DialogueTarget.IsResting = true;
+                        StopDialogue();
+                    }
                     break;
 
                 case DialogueStepType.ChooseTopic:
                     SetDialogueStep(DialogueStepType.DialogueLine, selectedOption);
+                    break;
+
+                case DialogueStepType.AssignJob:
+                    var job = Globals.CharacterManager.JobTypes.Where(j => j.Name == selectedOption.Text).First();
+                    if (!job.IsOccupied)
+                    {
+                        DialogueTarget.StartWorking(job);
+                        StopDialogue();
+                    }
                     break;
             }
         }

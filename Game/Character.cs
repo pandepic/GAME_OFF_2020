@@ -56,6 +56,8 @@ namespace GAME_OFF_2020
         public CharacterMood Mood { get; set; } = CharacterMood.Fine;
         public bool IsTalking { get; set; } = false;
         public bool IsWorking { get; set; } = false;
+        public bool IsResting { get; set; } = false;
+        public Job CurrentJob { get; set; } = null;
 
         public Character(CharacterData data)
         {
@@ -76,6 +78,24 @@ namespace GAME_OFF_2020
             StateMachine.RegisterState(new CharacterMovingState(this));
 
             SetState<CharacterIdleState>();
+        }
+
+        public void StartWorking(Job job)
+        {
+            StopWorking();
+            CurrentJob = job;
+            CurrentJob.IsOccupied = true;
+            IsWorking = true;
+            IsResting = false;
+        }
+
+        public void StopWorking()
+        {
+            if (CurrentJob != null)
+                CurrentJob.IsOccupied = false;
+            
+            CurrentJob = null;
+            IsWorking = false;
         }
 
         public void SetState<T>() where T : CharacterBaseState
