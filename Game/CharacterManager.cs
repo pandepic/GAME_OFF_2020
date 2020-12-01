@@ -28,7 +28,7 @@ namespace GAME_OFF_2020
         public List<CharacterData> CharacterData { get; set; }
         public List<Character> Characters { get; set; } = new List<Character>();
 
-        public Character Player { get; set; }
+        public PlayerCharacter Player { get; set; }
         public Character InteractTarget { get; set; }
 
         public CharacterManager(string assetName)
@@ -43,7 +43,7 @@ namespace GAME_OFF_2020
             foreach (var data in CharacterData)
                 Characters.Add(new Character(data));
 
-            Player = new Character(null);
+            Player = new PlayerCharacter(null);
             Characters.Add(Player);
         }
 
@@ -54,6 +54,13 @@ namespace GAME_OFF_2020
             foreach (var character in Characters)
             {
                 character.Sprite.Update(gameTimer);
+
+                if (character.IsTalking)
+                {
+                    character.SetState<CharacterIdleState>();
+                    continue;
+                }
+
                 character.Position += character.Velocity * gameTimer.DeltaS;
 
                 if (character.Velocity.X > 0 && character.Position.X > (map.MapPixelSize.X + character.Sprite.Width))
@@ -85,7 +92,7 @@ namespace GAME_OFF_2020
         public void DrawScreenSpace(SpriteBatch2D spriteBatch)
         {
             if (InteractTarget != null)
-                spriteBatch.DrawText(GameStates.GameStatePlay.DefaultFont, InteractTarget.Data.Name, Camera.WorldToScreen(InteractTarget.Position.ToVector2I() + new Vector2I(0, -8)), Veldrid.RgbaByte.White, 24, 1);
+                spriteBatch.DrawText(GameStates.GameStatePlay.DefaultFont, InteractTarget.Data.Name, Camera.WorldToScreen(InteractTarget.Position.ToVector2I() + new Vector2I(0, -6)), Veldrid.RgbaByte.White, 24, 1);
         }
 
         public Character GetCharacterFriend(Character character)

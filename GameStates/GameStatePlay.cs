@@ -8,42 +8,29 @@ using System.Xml.Linq;
 
 namespace GAME_OFF_2020.GameStates
 {
-    public static class GameConfig
-    {
-        public static float CharacterSpeed { get; set; }
-        public static float BackgroundSpeed { get; set; }
-        public static float CharacterY { get; set; }
-        public static int DialogueMaxWidth { get; set; }
-    }
-
     public class GameStatePlay : GameState
     {
         public static SpriteFont DefaultFont { get; private set; }
         public static Camera2D Camera;
 
-        public Character Player => CharacterManager.Player;
+        public CharacterManager CharacterManager => Globals.CharacterManager;
+        public DialogueManager DialogueManager => Globals.DialogueManager;
+        public PlayerCharacter Player => CharacterManager.Player;
 
         public Random RNG = new Random();
         public Camera2D BackgroundCamera;
         public TiledMap Map;
         public TiledMapRenderer MapRenderer;
         public TileBatch2D BackgroundStars;
-        public CharacterManager CharacterManager;
 
         public SpriteBatch2D SpriteBatch;
 
         public override void Load()
         {
-            using var fs = AssetManager.GetAssetStream("GameConfig.xml");
-            var configDoc = XDocument.Load(fs);
-
-            GameConfig.CharacterSpeed = float.Parse(configDoc.Root.Element("CharacterSpeed").Value);
-            GameConfig.BackgroundSpeed = float.Parse(configDoc.Root.Element("BackgroundSpeed").Value);
-            GameConfig.CharacterY = float.Parse(configDoc.Root.Element("CharacterY").Value);
-            GameConfig.DialogueMaxWidth = int.Parse(configDoc.Root.Element("DialogueMaxWidth").Value);
+            GameConfig.Load();
 
             SpriteBatch = new SpriteBatch2D();
-            DefaultFont = AssetManager.LoadSpriteFont("Lato-Bold.ttf");
+            DefaultFont = AssetManager.LoadSpriteFont("VT323-Regular.ttf");
 
             Map = AssetManager.LoadTiledMap("Ship.tmx");
             MapRenderer = new TiledMapRenderer(Map, null, AssetManager.LoadTexture2D("SubwayShip.png"));
@@ -76,7 +63,8 @@ namespace GAME_OFF_2020.GameStates
             }
             BackgroundStars.EndBuild();
 
-            CharacterManager = new CharacterManager("Crew.json");
+            Globals.CharacterManager = new CharacterManager("Crew.json");
+            Globals.DialogueManager = new DialogueManager();
         }
 
         public override void Unload()
@@ -100,6 +88,11 @@ namespace GAME_OFF_2020.GameStates
                     else if (state == GameControlState.Released)
                         Player.Velocity.X -= GameConfig.CharacterSpeed;
                     break;
+
+                case "Interact":
+                    if (state == GameControlState.Released)
+                        DialogueManager.StartDialogue();
+                    break;
             }
         }
 
@@ -109,6 +102,8 @@ namespace GAME_OFF_2020.GameStates
             BackgroundCamera.Update(gameTimer);
 
             CharacterManager.Update(gameTimer, Map);
+            DialogueManager.Update(gameTimer);
+
             Camera.Center(Player.Position.ToVector2I());
             Camera.Update(gameTimer);
         }
@@ -130,6 +125,7 @@ namespace GAME_OFF_2020.GameStates
             SpriteBatch.DrawText(DefaultFont, Camera.ToString(), new Vector2(25, 50), Veldrid.RgbaByte.White, 20, 1);
             SpriteBatch.DrawText(DefaultFont, BackgroundCamera.ToString(), new Vector2(25, 75), Veldrid.RgbaByte.White, 20, 1);
 #endif
+            DialogueManager.Draw(SpriteBatch, Camera);
             SpriteBatch.End();
         }
     }

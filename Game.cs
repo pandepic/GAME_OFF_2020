@@ -12,6 +12,11 @@ namespace GAME_OFF_2020
         Play
     }
 
+    public enum SoundType
+    {
+        Music,
+    }
+
     public class Game : BaseGame
     {
         protected Dictionary<GameStateType, GameState> _gameStates = new Dictionary<GameStateType, GameState>()
@@ -49,6 +54,10 @@ namespace GAME_OFF_2020
             AnimationManager.LoadAnimations("Animations.xml");
             InputManager.LoadGameControls();
             //CursorManager.SetCursor("normal", "Images/NormalCursor.png");
+
+            SoundManager.SetMasterVolume(SettingsManager.GetSetting<float>("Sound", "MasterVolume"));
+            SoundManager.SetVolume((int)SoundType.Music, SettingsManager.GetSetting<float>("Sound", "MusicVolume"));
+            SoundManager.Play("CaptainShostakovich.ogg", (int)SoundType.Music, AudioSourceType.Auto, true);
 
             SetGameState(GameStateType.Play);
         }

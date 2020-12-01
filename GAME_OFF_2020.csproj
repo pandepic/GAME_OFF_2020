@@ -43,6 +43,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Mods\Base\Audio\CaptainShostakovich.ogg" />
+    <None Remove="Mods\Base\Fonts\VT323-Regular.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="nulastudio.NetCoreBeauty" Version="1.2.9" />
   </ItemGroup>
 

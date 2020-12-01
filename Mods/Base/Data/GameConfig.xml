@@ -5,4 +5,19 @@
   <BackgroundSpeed>15</BackgroundSpeed>
   <CharacterY>217</CharacterY>
   <DialogueMaxWidth>400</DialogueMaxWidth>
+  <DialoguePadding>15</DialoguePadding>
+  <DialogueFontSize>60</DialogueFontSize>
+  <SpeechBubble9Slice TileSize="8,8">
+    <TopLeft>0,0</TopLeft>
+    <TopCenter>1,0</TopCenter>
+    <TopRight>2,0</TopRight>
+
+    <MiddleLeft>0,1</MiddleLeft>
+    <MiddleCenter>1,1</MiddleCenter>
+    <MiddleRight>2,1</MiddleRight>
+
+    <BottomLeft>0,2</BottomLeft>
+    <BottomCenter>1,2</BottomCenter>
+    <BottomRight>2,2</BottomRight>
+  </SpeechBubble9Slice>
 </GameConfig>

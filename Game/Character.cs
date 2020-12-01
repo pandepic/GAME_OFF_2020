@@ -54,6 +54,7 @@ namespace GAME_OFF_2020
 
         public SimpleStateMachine StateMachine { get; set; } = new SimpleStateMachine();
         public CharacterMood Mood { get; set; } = CharacterMood.Fine;
+        public bool IsTalking { get; set; } = false;
 
         public Character(CharacterData data)
         {
@@ -81,5 +82,10 @@ namespace GAME_OFF_2020
             if (!(StateMachine.CurrentState is T))
                 StateMachine.SetState<T>();
         }
+    }
+
+    public class PlayerCharacter : Character
+    {
+        public PlayerCharacter(CharacterData data) : base(data) { }
     }
 }
