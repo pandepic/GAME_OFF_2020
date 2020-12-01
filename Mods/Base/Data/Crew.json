@@ -1,8 +1,9 @@
 [
   {
     "Name": "Korsakov",
-    "Texture": "CatWalking.png",
+    "Texture": "Cat.png",
     "StartPosition": 410,
+    "RoomPosition": 792,
     "Species": "Cat",
     "Talent": "Mopping",
     "Weakness": "Oxygen-Garden",
@@ -25,9 +26,9 @@
         },
         "Not Currently Working": {
           "Personal": {
-            "Very Upset": "I started having nightmares about my family dying...I'd really just like some time alone if I could get it.",
+            "VeryUpset": "I started having nightmares about my family dying...I'd really just like some time alone if I could get it.",
             "Fine": "I think I'm starting to get to a better place.",
-            "In A Good Place": "If my family passed in the apocalypse, the least I can do for them is to keep going."
+            "InAGoodPlace": "If my family passed in the apocalypse, the least I can do for them is to keep going."
           },
           "Opinion of Crewmate": {
             "Opinion 1": "I like this Prokofiev. They're quiet. I like quiet. I need quiet.",
@@ -40,8 +41,9 @@
 
   {
     "Name": "Dvorak",
-    "Texture": "SnakeWalking.png",
+    "Texture": "Snake.png",
     "StartPosition": 450,
+    "RoomPosition": 744,
     "Species": "Snake",
     "Talent": "Fixing Water-Converter",
     "Weakness": "Mopping",
@@ -64,9 +66,9 @@
         },
         "Not Currently Working": {
           "Personal": {
-            "Very Upset": "I...have some trauma. I never knew my family. I was raised in a lab. I've been having some really rough nightmares about it. It's making it hard to work.",
+            "VeryUpset": "I...have some trauma. I never knew my family. I was raised in a lab. I've been having some really rough nightmares about it. It's making it hard to work.",
             "Fine": "I've been having fewer nightmares!",
-            "In A Good Place": "The nightmares are gone! I've been doing lots of work on myself while I've been alone. Thank you for that time."
+            "InAGoodPlace": "The nightmares are gone! I've been doing lots of work on myself while I've been alone. Thank you for that time."
           },
           "Opinion of Crewmate": {
             "Opinion 1": "If I had to pick a favorite, it'd be that cat, Korsakov. He's got this dignity and self-respect that I admire.",
@@ -79,10 +81,11 @@
 
   {
     "Name": "Tchaikovsky",
-    "Texture": "RatWalking.png",
+    "Texture": "Rat.png",
     "StartPosition": 500,
+    "RoomPosition": 888,
     "Species": "Rat",
-    "Talent": "Fixing Virus",
+    "Talent": "Fixing Computer",
     "Weakness": "Fixing Water-Converter",
     "Likes": "Dvorak",
     "Hates": "Korsakov",
@@ -103,9 +106,9 @@
         },
         "Not Currently Working": {
           "Personal": {
-            "Very Upset": "S-s-so I'm not doing okay. Some self-esteem issues I'm working through. ...Self hatred issues. Shame spirals. Is it okay if I spend some time alone?",
+            "VeryUpset": "S-s-so I'm not doing okay. Some self-esteem issues I'm working through. ...Self hatred issues. Shame spirals. Is it okay if I spend some time alone?",
             "Fine": "I started thinking about who I am. When I spend time alone, I like myself as a person a little bit more. A little bit.",
-            "In A Good Place": "Thank you for letting me spend time alone."
+            "InAGoodPlace": "Thank you for letting me spend time alone."
           },
           "Opinion of Crewmate": {
             "Opinion 1": "I-I-I'm a big fan of Dvorak, the snake. T-t-they say a lot of really positive things. Valuable for a little rat like me.",
@@ -118,10 +121,11 @@
 
   {
     "Name": "Rachmaninoff",
-    "Texture": "MonkeyWalking.png",
+    "Texture": "Gorilla.png",
     "StartPosition": 550,
+    "RoomPosition": 935,
     "Species": "Gorilla",
-    "Talent": "Fixing Siding",
+    "Talent": "Fixing Hull",
     "Weakness": "Fixing Computer",
     "Likes": "Tchaikovsky",
     "Hates": "Prokofiev",
@@ -129,7 +133,7 @@
       "How's It Going?": {
         "Currently Working": {
           "Status": {
-            "Working On Talent": "FIXING SIDING. GOOD JOB FOR ME. I HOLD BREATH WHEN I'M OUTSIDE. BIG STRONG MUSCLES. ALL OF THAT. GOOD JOB FOR ME.",
+            "Working On Talent": "FIXING HULL. GOOD JOB FOR ME. I HOLD BREATH WHEN I'M OUTSIDE. BIG STRONG MUSCLES. ALL OF THAT. GOOD JOB FOR ME.",
             "Working On Weakness": "I KEEP TRYING TO SMASH COMPUTER, BUT IT IS ONLY GETTING MORE BROKEN.",
             "Default 1": "I AM USING MY MUSCLES AS BEST AS I CAN.",
             "Default 2": "WORKING. WORKING HARD. BUT HARDLY WORKING. THAT IS A GORILLA JOKE.",
@@ -142,9 +146,9 @@
         },
         "Not Currently Working": {
           "Personal": {
-            "Very Upset": "I AM GOING STIR CRAZY. I CAME FROM JUNGLE. I AM NOT DOING WELL INSIDE THIS SMALL TUNNEL. AHHHH. THAT IS A PANICKED GORILLA NOISE.",
+            "VeryUpset": "I AM GOING STIR CRAZY. I CAME FROM JUNGLE. I AM NOT DOING WELL INSIDE THIS SMALL TUNNEL. AHHHH. THAT IS A PANICKED GORILLA NOISE.",
             "Fine": "THANK YOU FOR TIME ALONE. I SET UP JUNGLE GYM IN MY ROOM. FEELING A LITTLE BETTER.",
-            "In A Good Place": "YESTERDAY I BROKE MY BUNKBED. TURNED IT INTO A WEIGHT SET. WORKING OUT. GOOD FOR THE BODY AND THE SOUL."
+            "InAGoodPlace": "YESTERDAY I BROKE MY BUNKBED. TURNED IT INTO A WEIGHT SET. WORKING OUT. GOOD FOR THE BODY AND THE SOUL."
           },
           "Opinion of Crewmate": {
             "Opinion 1": "I LOOK AT LITTLE RAT. THEY'RE FUNNY. SCURRYING. FUNNY RAT HAHA. HAHA IS THE SOUND GORILLAS MAKE WHEN THEY LAUGH, LOL.",
@@ -157,11 +161,12 @@
 
   {
     "Name": "Prokofiev",
-    "Texture": "TurtleWalking.png",
+    "Texture": "Turtle.png",
     "StartPosition": 600,
+    "RoomPosition": 840,
     "Species": "Turtle",
     "Talent": "Oxygen-Garden",
-    "Weakness": "Fixing Siding",
+    "Weakness": "Fixing Hull",
     "Likes": "Rachmaninoff",
     "Hates": "Dvorak",
     "Dialogue": {
@@ -169,7 +174,7 @@
         "Currently Working": {
           "Status": {
             "Working On Talent": "I'm enjoying gardening. It's peaceful.",
-            "Working On Weakness": "I don't get this. I can't reach the siding. I have little arms.",
+            "Working On Weakness": "I don't get this. I can't reach the hull damage. I have little arms.",
             "Default 1": "Work is good.",
             "Default 2": "I'm working fine. Doing my best.",
             "Default 3": "Work is going okay."
@@ -181,9 +186,9 @@
         },
         "Not Currently Working": {
           "Personal": {
-            "Very Upset": "I have a lot of problems. I don't want to tell you what they are. I'd like time alone to process them.",
+            "VeryUpset": "I have a lot of problems. I don't want to tell you what they are. I'd like time alone to process them.",
             "Fine": "I'm doing a little bit better, thank you for asking.",
-            "In A Good Place": "I'm much better. I don't want to talk about myself anymore."
+            "InAGoodPlace": "I'm much better. I don't want to talk about myself anymore."
           },
           "Opinion of Crewmate": {
             "Opinion 1": "Rachmaninoff is a welcome change to the ship. I'm glad for the noise and the life that they offer.",

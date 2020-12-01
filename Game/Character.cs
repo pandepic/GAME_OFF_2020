@@ -30,7 +30,7 @@ namespace GAME_OFF_2020
 
         public override void Begin()
         {
-            Character.Sprite.StopAnimation();
+            Character.Sprite.PlayAnimation(AnimationManager.GetAnimation("Idle"));
         }
     }
 
@@ -55,6 +55,7 @@ namespace GAME_OFF_2020
         public SimpleStateMachine StateMachine { get; set; } = new SimpleStateMachine();
         public CharacterMood Mood { get; set; } = CharacterMood.Fine;
         public bool IsTalking { get; set; } = false;
+        public bool IsWorking { get; set; } = false;
 
         public Character(CharacterData data)
         {
@@ -67,8 +68,8 @@ namespace GAME_OFF_2020
             }
             else // player
             {
-                Sprite = new AnimatedSprite(AssetManager.LoadTexture2D("DogWalking.png"), new Vector2I(32, 32));
-                Position = new Vector2(0, GameConfig.CharacterY);
+                Sprite = new AnimatedSprite(AssetManager.LoadTexture2D("Dog.png"), new Vector2I(32, 32));
+                Position = new Vector2(200, GameConfig.CharacterY);
             }
 
             StateMachine.RegisterState(new CharacterIdleState(this));

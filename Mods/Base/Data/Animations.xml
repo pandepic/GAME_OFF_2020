@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <Animations>
-  <Animation Name="Walk" Frames="1>8" DurationPerFrame="100" EndFrame="1" />
+  <Animation Name="Idle" Frames="1>4" DurationPerFrame="100" EndFrame="1" />
+  <Animation Name="Walk" Frames="9>16" DurationPerFrame="100" EndFrame="1" />
 </Animations>

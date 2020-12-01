@@ -22,8 +22,16 @@ namespace GAME_OFF_2020
         public Dictionary<string, Dictionary<string, Dictionary<string, Dictionary<string, string>>>> Dialogue { get; set; }
     }
 
+    public class Job
+    {
+        public string Name { get; set; }
+        public float Position { get; set; }
+    }
+
     public class CharacterManager
     {
+        public List<Job> JobTypes { get; private set; } = new List<Job>();
+
         public Camera2D Camera => GameStatePlay.Camera;
 
         public List<CharacterData> CharacterData { get; set; }
@@ -41,6 +49,8 @@ namespace GAME_OFF_2020
             var serializer = new JsonSerializer();
             CharacterData = serializer.Deserialize<List<CharacterData>>(jsonTextReader);
 
+            JobTypes.Clear();
+
             foreach (var data in CharacterData)
                 Characters.Add(new Character(data));
 
@@ -48,9 +58,20 @@ namespace GAME_OFF_2020
             Characters.Add(Player);
         }
 
+        public void LoadJobs(string assetName)
+        {
+            using var fs = AssetManager.GetAssetStream(assetName);
+            using var streamReader = new StreamReader(fs);
+            using var jsonTextReader = new JsonTextReader(streamReader);
+
+            var serializer = new JsonSerializer();
+            JobTypes = serializer.Deserialize<List<Job>>(jsonTextReader);
+        }
+
         public void Update(GameTimer gameTimer, TiledMap map)
         {
-            InteractTarget = null;
+            if (!Player.IsTalking)
+                InteractTarget = null;
 
             foreach (var character in Characters)
             {
@@ -93,10 +114,12 @@ namespace GAME_OFF_2020
         public void DrawScreenSpace(SpriteBatch2D spriteBatch)
         {
             if (InteractTarget != null)
-            {
-                var nameSize = GameStatePlay.DefaultFont.MeasureText(InteractTarget.Data.Name, GameConfig.CharacterNameSize, 1);
-                spriteBatch.DrawText(GameStatePlay.DefaultFont, InteractTarget.Data.Name, Camera.WorldToScreen(new Vector2I((int)InteractTarget.Position.X, GameConfig.CharacterNameY)), Veldrid.RgbaByte.White, GameConfig.CharacterNameSize, 1);
-            }
+                spriteBatch.DrawText(
+                    GameStatePlay.DefaultFont,
+                    InteractTarget.Data.Name,
+                    Camera.WorldToScreen(new Vector2I((int)InteractTarget.Position.X, GameConfig.CharacterNameY)),
+                    Veldrid.RgbaByte.White,
+                    GameConfig.CharacterNameSize, 1);
         }
 
         public Character GetCharacterFriend(Character character)

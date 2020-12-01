@@ -2,20 +2,51 @@
 using GAME_OFF_2020.GameStates;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using System.Text;
 
 namespace GAME_OFF_2020
 {
+    public enum DialogueStepType
+    {
+        Menu,
+        ChooseTopic,
+        AssignJob,
+        AssignRest,
+        DialogueLine,
+    }
+
+    public class DialogueOption
+    {
+        public string Text { get; set; }
+        public bool IsOption { get; set; } = true;
+        public bool IsSelected { get; set; } = false;
+        public DialogueStepType Step { get; set; }
+
+        public DialogueOption(string text, DialogueStepType step, bool option = true)
+        {
+            Text = DialogueManager.GetWrappedText(text);
+            IsOption = option;
+            Step = step;
+        }
+    }
+
     public class DialogueManager
     {
-        public SpriteFont DefaultFont => GameStatePlay.DefaultFont;
+        public static SpriteFont DefaultFont => GameStatePlay.DefaultFont;
 
         public string CurrentText { get; set; }
         public Texture2D BackgroundAtlas { get; set; }
         public Texture2D BackgroundTexture { get; set; }
+        
         public bool IsShowing { get; set; }
         public Character DialogueTarget { get; set; }
+        public DialogueStepType DialogueStep { get; set; }
+        public List<DialogueOption> DialogueOptions { get; set; } = new List<DialogueOption>();
+        public StringBuilder DialogueSB { get; set; } = new StringBuilder();
+
+        protected int _lastOpinionIndex = 1;
 
         public DialogueManager()
         {
@@ -29,9 +60,21 @@ namespace GAME_OFF_2020
                 return;
 
             DialogueTarget = character;
-            ShowDialogue(DialogueTarget.Data.Name);
+            DialogueStep = DialogueStepType.Menu;
+            SetDialogueStep(DialogueStep);
+
             DialogueTarget.IsTalking = true;
             Globals.CharacterManager.Player.IsTalking = true;
+        }
+
+        public void UpdateDialogueStep()
+        {
+            DialogueSB.Clear();
+
+            foreach (var option in DialogueOptions)
+                DialogueSB.AppendLine((option.IsOption ? (option.IsSelected ? "> " : "  ") : "") + option.Text);
+
+            ShowDialogue(DialogueSB.ToString());
         }
 
         public void ShowDialogue(string text)
@@ -68,7 +111,6 @@ namespace GAME_OFF_2020
 
         public void Update(GameTimer gameTimer)
         {
-
         }
 
         public void Draw(SpriteBatch2D spriteBatch, Camera2D camera)
@@ -76,9 +118,189 @@ namespace GAME_OFF_2020
             if (string.IsNullOrWhiteSpace(CurrentText) || !IsShowing)
                 return;
 
-            var screenDrawPos = new Vector2((ElementGlobals.TargetResolutionWidth / 2) - (BackgroundTexture.Width * 3 / 2), 550);
+            var screenDrawPos = new Vector2((ElementGlobals.TargetResolutionWidth / 2) - (BackgroundTexture.Width * 3 / 2), (ElementGlobals.TargetResolutionHeight / 2) - (BackgroundTexture.Height * 3 / 2));
             spriteBatch.DrawTexture2D(BackgroundTexture, screenDrawPos, null, new Vector2(3));
             spriteBatch.DrawText(DefaultFont, CurrentText, screenDrawPos + new Vector2(GameConfig.DialoguePadding), Veldrid.RgbaByte.White, GameConfig.DialogueFontSize, 0);
+        }
+
+        public void SetDialogueStep(DialogueStepType step, DialogueOption previousOption = null)
+        {
+            DialogueOptions.Clear();
+            DialogueStep = step;
+
+            switch (step)
+            {
+                case DialogueStepType.Menu:
+                    DialogueOptions.Add(new DialogueOption("How's It Going?", step));
+                    DialogueOptions.Add(new DialogueOption("Assign Job", step));
+                    DialogueOptions.Add(new DialogueOption("Assign Rest", step));
+                    break;
+
+                case DialogueStepType.ChooseTopic:
+                    var workingKey = DialogueTarget.IsWorking ? "Currently Working" : "Not Currently Working";
+                    foreach (var topicKVP in DialogueTarget.Data.Dialogue["How's It Going?"][workingKey])
+                        DialogueOptions.Add(new DialogueOption(topicKVP.Key, step));
+                    break;
+
+                case DialogueStepType.AssignJob:
+                    foreach (var jobType in Globals.CharacterManager.JobTypes)
+                        DialogueOptions.Add(new DialogueOption(jobType.Name, step));
+                    break;
+
+                case DialogueStepType.DialogueLine:
+                    if (DialogueTarget.IsWorking)
+                    {
+                    }
+                    else
+                    {
+                        if (previousOption.Text == "Personal")
+                            DialogueOptions.Add(new DialogueOption(DialogueTarget.Data.Dialogue["How's It Going?"]["Not Currently Working"][previousOption.Text][DialogueTarget.Mood.ToString()], step, false));
+                        else
+                        {
+                            if (_lastOpinionIndex == 0)
+                                _lastOpinionIndex = 1;
+                            else
+                                _lastOpinionIndex = 0;
+
+                            DialogueOptions.Add(new DialogueOption(DialogueTarget.Data.Dialogue["How's It Going?"]["Not Currently Working"][previousOption.Text].ElementAt(_lastOpinionIndex).Value, step, false));
+                        }
+                    }
+                    break;
+            }
+
+            DialogueOptions.Add(new DialogueOption("Back", step));
+
+            var firstSelected = false;
+            foreach (var option in DialogueOptions)
+            {
+                if (option.IsOption && !firstSelected)
+                {
+                    option.IsSelected = true;
+                    firstSelected = true;
+                }
+            }
+
+            UpdateDialogueStep();
+        }
+
+        public static StringBuilder WrappedTextSB = new StringBuilder();
+        public static string GetWrappedText(string text)
+        {
+            WrappedTextSB.Clear();
+            var width = 0;
+            var words = text.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+            
+            foreach (var word in words)
+            {
+                var textSize = DefaultFont.MeasureText(word, GameConfig.DialogueFontSize);
+
+                if (width + textSize.X > GameConfig.DialogueMaxWidth)
+                {
+                    width = 0;
+                    WrappedTextSB.Length -= 1;
+                    WrappedTextSB.Append("\n");
+                }
+
+                WrappedTextSB.Append(word + " ");
+                width += (int)textSize.X;
+            }
+
+            return WrappedTextSB.ToString().TrimEnd(' ');
+        }
+
+        public void ChangeSelectedOption(int direction)
+        {
+            if (DialogueOptions.Where(o => o.IsOption).Count() <= 1)
+                return;
+
+            var selectedIndex = DialogueOptions.IndexOf(DialogueOptions.Where(o => o.IsSelected).First());
+            DialogueOptions[selectedIndex].IsSelected = false;
+
+            selectedIndex += direction;
+            if (selectedIndex < 0) { selectedIndex = DialogueOptions.Count - 1; }
+            if (selectedIndex >= DialogueOptions.Count) { selectedIndex = 0; }
+
+            while (!DialogueOptions[selectedIndex].IsOption)
+            {
+                selectedIndex += direction;
+                if (selectedIndex < 0) { selectedIndex = DialogueOptions.Count - 1; }
+                if (selectedIndex >= DialogueOptions.Count) { selectedIndex = 0; }
+            }
+
+            DialogueOptions[selectedIndex].IsSelected = true;
+            UpdateDialogueStep();
+        }
+
+        public void SelectOption()
+        {
+            var selectedOption = DialogueOptions.Where(o => o.IsSelected).First();
+            var selectedIndex = DialogueOptions.IndexOf(selectedOption);
+
+            if (selectedOption.Text == "Back")
+            {
+                Back();
+                return;
+            }
+
+            switch (DialogueStep)
+            {
+                case DialogueStepType.Menu:
+                    if (selectedIndex == 0)
+                        SetDialogueStep(DialogueStepType.ChooseTopic);
+                    else if (selectedIndex == 1)
+                        SetDialogueStep(DialogueStepType.AssignJob);
+                    break;
+
+                case DialogueStepType.ChooseTopic:
+                    SetDialogueStep(DialogueStepType.DialogueLine, selectedOption);
+                    break;
+            }
+        }
+
+        public void Back()
+        {
+            switch (DialogueStep)
+            {
+                case DialogueStepType.Menu:
+                    StopDialogue();
+                    break;
+
+                case DialogueStepType.AssignJob:
+                case DialogueStepType.ChooseTopic:
+                    SetDialogueStep(DialogueStepType.Menu);
+                    break;
+
+                case DialogueStepType.DialogueLine:
+                    SetDialogueStep(DialogueStepType.ChooseTopic);
+                    break;
+            }
+        }
+
+        public void HandleGameControl(string controlName, GameControlState state, GameTimer gameTimer)
+        {
+            if (state != GameControlState.Released)
+                return;
+
+            if (controlName == "Interact")
+            {
+                if (!IsShowing)
+                    StartDialogue();
+                else
+                    SelectOption();
+            }
+            else if (controlName == "Cancel")
+            {
+                if (IsShowing)
+                    Back();
+            }
+            else if (controlName == "MoveUp" && IsShowing)
+            {
+                ChangeSelectedOption(-1);
+            }
+            else if (controlName == "MoveDown" && IsShowing)
+            {
+                ChangeSelectedOption(1);
+            }
         }
     }
 }
