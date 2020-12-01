@@ -27,6 +27,8 @@ namespace GAME_OFF_2020
         public static float CharacterSpeed { get; set; }
         public static float BackgroundSpeed { get; set; }
         public static float CharacterY { get; set; }
+        public static int CharacterNameY { get; set; }
+        public static int CharacterNameSize { get; set; }
         public static int DialogueMaxWidth { get; set; }
         public static int DialoguePadding { get; set; }
         public static int DialogueFontSize { get; set; }
@@ -40,6 +42,8 @@ namespace GAME_OFF_2020
             CharacterSpeed = float.Parse(configDoc.Root.Element("CharacterSpeed").Value);
             BackgroundSpeed = float.Parse(configDoc.Root.Element("BackgroundSpeed").Value);
             CharacterY = float.Parse(configDoc.Root.Element("CharacterY").Value);
+            CharacterNameY = int.Parse(configDoc.Root.Element("CharacterNameY").Value);
+            CharacterNameSize = int.Parse(configDoc.Root.Element("CharacterNameSize").Value);
             DialogueMaxWidth = int.Parse(configDoc.Root.Element("DialogueMaxWidth").Value);
             DialoguePadding = int.Parse(configDoc.Root.Element("DialoguePadding").Value);
             DialogueFontSize = int.Parse(configDoc.Root.Element("DialogueFontSize").Value);

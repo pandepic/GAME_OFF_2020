@@ -4,7 +4,9 @@
   <CharacterSpeed>100</CharacterSpeed>
   <BackgroundSpeed>15</BackgroundSpeed>
   <CharacterY>217</CharacterY>
-  <DialogueMaxWidth>400</DialogueMaxWidth>
+  <CharacterNameY>205</CharacterNameY>
+  <CharacterNameSize>42</CharacterNameSize>
+  <DialogueMaxWidth>600</DialogueMaxWidth>
   <DialoguePadding>15</DialoguePadding>
   <DialogueFontSize>60</DialogueFontSize>
   <SpeechBubble9Slice TileSize="8,8">

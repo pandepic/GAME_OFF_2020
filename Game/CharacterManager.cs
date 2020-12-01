@@ -1,5 +1,6 @@
 ﻿using ElementEngine;
 using ElementEngine.Tiled;
+using GAME_OFF_2020.GameStates;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
@@ -23,7 +24,7 @@ namespace GAME_OFF_2020
 
     public class CharacterManager
     {
-        public Camera2D Camera => GameStates.GameStatePlay.Camera;
+        public Camera2D Camera => GameStatePlay.Camera;
 
         public List<CharacterData> CharacterData { get; set; }
         public List<Character> Characters { get; set; } = new List<Character>();
@@ -78,7 +79,7 @@ namespace GAME_OFF_2020
                 else if (character.Velocity.X < 0)
                     character.Sprite.Flip = SpriteFlipType.Horizontal;
 
-                if (character != Player && character.CollisionRect.Intersects(Player.CollisionRect))
+                if (!Player.IsTalking && character != Player && character.CollisionRect.Intersects(Player.CollisionRect))
                     InteractTarget = character;
             }
         }
@@ -92,7 +93,10 @@ namespace GAME_OFF_2020
         public void DrawScreenSpace(SpriteBatch2D spriteBatch)
         {
             if (InteractTarget != null)
-                spriteBatch.DrawText(GameStates.GameStatePlay.DefaultFont, InteractTarget.Data.Name, Camera.WorldToScreen(InteractTarget.Position.ToVector2I() + new Vector2I(0, -6)), Veldrid.RgbaByte.White, 24, 1);
+            {
+                var nameSize = GameStatePlay.DefaultFont.MeasureText(InteractTarget.Data.Name, GameConfig.CharacterNameSize, 1);
+                spriteBatch.DrawText(GameStatePlay.DefaultFont, InteractTarget.Data.Name, Camera.WorldToScreen(new Vector2I((int)InteractTarget.Position.X, GameConfig.CharacterNameY)), Veldrid.RgbaByte.White, GameConfig.CharacterNameSize, 1);
+            }
         }
 
         public Character GetCharacterFriend(Character character)
